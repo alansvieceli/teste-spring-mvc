@@ -1,23 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Cadastro de Produtos</title>
+<title>Produtos</title>
 </head>
 <body>
+	<h2>Cadastro de Produtos</h2>
 	<form action="/teste-spring-mvc/produtos" method="post">
 		<div>
-			<label>Título</label> <input type="text" name="titulo">
+			<label>TÃ­tulo</label> <input type="text" name="titulo">
 		</div>
 		<div>
-			<label>Descrição</label>
+			<label>DescriÃ§Ã£o</label>
 			<textarea rows="10" cols="20" name="descricao"></textarea>
 		</div>
 		<div>
-			<label>Páginas</label> <input type="text" name="paginas">
+			<label>PÃ¡ginas</label> <input type="text" name="paginas">
 		</div>
 
 		<c:forEach items="${tiposPreco}" var="tipoPreco" varStatus="status">
