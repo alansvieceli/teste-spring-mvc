@@ -9,6 +9,8 @@
 </head>
 <body>
 	<h2>Lista de Produtos</h2>
+	
+	
 
 	<div>
 		<b>${sucesso}</b>
@@ -22,7 +24,7 @@
 		</tr>
 
 		<c:forEach items="${produtos}" var="produto">
-			<tr>
+			<tr>				
 				<td>${produto.titulo}</td>
 				<td>${produto.descricao}</td>
 				<td>${produto.paginas}</td>
