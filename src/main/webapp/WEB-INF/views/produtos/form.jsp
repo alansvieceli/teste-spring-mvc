@@ -11,9 +11,9 @@
 </head>
 <body>
 	<h2>Cadastro de Produtos</h2>
-	<!-- <form action="/teste-spring-mvc/produtos" method="post"> -->
+	<!-- <form action="/teste-spring-mvc/produtos" method="post" -->
 	<form:form action="${s:mvcUrl('PC#gravar').build()}" method="post"
-		commandName="produto">
+		commandName="produto" enctype="multipart/form-data">
 		<div>
 			<label>Título</label>
 			<form:input path="titulo" />
@@ -39,9 +39,14 @@
 			<div>
 				<label>${tipoPreco}</label>
 				<form:input path="precos[${status.index}].valor" />
-				<form:hidden path="precos[${status.index}].tipo" value="${tipoPreco}" />
+				<form:hidden path="precos[${status.index}].tipo"
+					value="${tipoPreco}" />
 			</div>
 		</c:forEach>
+		<div>
+			<label>Sumário</label> <input type="file" name="sumario">
+		</div>
+
 		<button type="submit">Cadastrar</button>
 	</form:form>
 </body>

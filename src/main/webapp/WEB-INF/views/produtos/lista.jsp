@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +10,6 @@
 </head>
 <body>
 	<h2>Lista de Produtos</h2>
-	
-	
-
 	<div>
 		<b>${sucesso}</b>
 	</div>
@@ -20,12 +18,12 @@
 		<tr>
 			<td>Título</td>
 			<td>Descrição</td>
-			<td>Página</td>
+			<td>Páginas</td>
 		</tr>
 
 		<c:forEach items="${produtos}" var="produto">
-			<tr>				
-				<td>${produto.titulo}</td>
+			<tr>
+				<td><a href="${s:mvcUrl('PC#detalhe').arg(0, produto.id).build() }">${produto.titulo}</a></td>
 				<td>${produto.descricao}</td>
 				<td>${produto.paginas}</td>
 			</tr>
