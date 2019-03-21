@@ -1,8 +1,10 @@
 package br.com.alan.loja.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.alan.loja.daos.ProdutoDAO;
@@ -13,6 +15,7 @@ import br.com.alan.loja.models.enums.TipoPreco;
 
 @Controller
 @RequestMapping("/carrinho")
+@Scope(value=WebApplicationContext.SCOPE_REQUEST)
 public class CarrinhoComprasController {
 
 	@Autowired
