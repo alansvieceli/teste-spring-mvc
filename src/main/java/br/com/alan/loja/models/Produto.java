@@ -1,5 +1,6 @@
 package br.com.alan.loja.models;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import br.com.alan.loja.models.enums.TipoPreco;
 
 @Entity
 public class Produto {
@@ -28,6 +31,14 @@ public class Produto {
 	private List<Preco> precos;
 
 	private String sumarioPath;
+
+	public Produto() {
+		
+	}
+	
+	public Produto(Integer id) {
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;
@@ -83,6 +94,11 @@ public class Produto {
 
 	public void setSumarioPath(String sumarioPath) {
 		this.sumarioPath = sumarioPath;
+	}
+
+	public BigDecimal precoPara(TipoPreco tipoPreco) {
+		return precos.stream().filter(preco -> preco.getTipo().equals(tipoPreco))
+				.findFirst().get().getValor();
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package br.com.alan.loja.models;
 
+import java.math.BigDecimal;
+
 import br.com.alan.loja.models.enums.TipoPreco;
 
 public class CarrinhoItem {
@@ -16,6 +18,10 @@ public class CarrinhoItem {
 		this.tipoPreco = tipoPreco;
 	}
 
+	public BigDecimal getPreco() {
+		return produto.precoPara(tipoPreco);
+	}
+
 	public Produto getProduto() {
 		return produto;
 	}
@@ -30,6 +36,10 @@ public class CarrinhoItem {
 
 	public void setTipoPreco(TipoPreco tipoPreco) {
 		this.tipoPreco = tipoPreco;
+	}
+
+	public BigDecimal getTotal(int quantidade) {
+		return this.getPreco().multiply(new BigDecimal(quantidade));
 	}
 
 	@Override
