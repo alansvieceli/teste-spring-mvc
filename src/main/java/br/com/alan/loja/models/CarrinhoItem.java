@@ -1,11 +1,13 @@
 package br.com.alan.loja.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import br.com.alan.loja.models.enums.TipoPreco;
 
-public class CarrinhoItem {
-
+public class CarrinhoItem implements Serializable{
+	private static final long serialVersionUID = 8535946962198606441L;
+	
 	private Produto produto;
 	private TipoPreco tipoPreco;
 
