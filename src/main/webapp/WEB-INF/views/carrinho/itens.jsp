@@ -2,52 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
-<!DOCTYPE html>
-<html>
-<head>
+<tags:pageTemplate
+	titulo="Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código">
 
-<c:url value="/" var="contextPath" />
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1" />
-
-<title>Livros de Java, SOA, Android, iPhone, Ruby on Rails e
-	muito mais - Casa do Código</title>
-
-<link rel="icon"
-	href="//cdn.shopify.com/s/files/1/0155/7645/t/177/assets/favicon.ico?11981592617154272979"
-	type="image/ico" />
-<link href="https://plus.googlecom/108540024862647200608"
-	rel="publisher" />
-<link href="${contextPath}resources/css/cssbase-min.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700'
-	rel='stylesheet' />
-<link href="${contextPath}resources/css/fonts.css" rel="stylesheet"
-	type="text/css" media="all" />
-<link href="${contextPath}resources/css/fontello-ie7.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="${contextPath}resources/css/fontello-embedded.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="${contextPath}resources/css/fontello.css" rel="stylesheet"
-	type="text/css" media="all" />
-<link href="${contextPath}resources/css/style.css" rel="stylesheet"
-	type="text/css" media="all" />
-<link href="${contextPath}resources/css/layout-colors.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="${contextPath}resources/css/responsive-style.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="${contextPath}resources/css/guia-do-programador-style.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="${contextPath}resources/css/produtos.css" rel="stylesheet"
-	type="text/css" media="all" />
-<link rel="canonical" href="http://www.casadocodigo.com.br/" />
-</head>
-<body>
-
-	<%@include file="/WEB-INF/views/cabecalho.jsp"%>
+	<c:url value="/" var="contextPath" />
 
 	<section class="container middle">
 		<h2 id="cart-title">Seu carrinho de compras</h2>
@@ -75,33 +36,30 @@
 						<td class="cart-img-col"><img
 							src="http://cdn.shopify.com/s/files/1/0155/7645/products/css-eficiente-featured_large.png?v=1435245145"
 							width="71px" height="100px" /></td>
-						<td class="item-title">${item.produto.titulo }</td>
-						<td class="numeric-cell">${item.preco }</td>
+						<td class="item-title">${item.produto.titulo}</td>
+						<td class="numeric-cell">${item.preco}</td>
 						<td class="quantity-input-cell"><input type="number" min="0"
-							id="quantidade" name="quantidade"
+							readonly="readonly" id="quantidade" name="quantidade"
 							value="${carrinhoCompras.getQuantidade(item) }" /></td>
-						<td class="numeric-cell">${carrinhoCompras.getTotal(item) }</td>
-						<td class="remove-item">
-							<form
+						<td class="numeric-cell">${carrinhoCompras.getTotal(item)}</td>
+						<td class="remove-item"><form:form
 								action="${s:mvcUrl('CCC#remover').arg(0, item.produto.id).arg(1, item.tipoPreco).build() }"
-								method="POST">
+								method="post">
 								<input type="image"
 									src="${contextPath }/resources/imagens/excluir.png"
 									alt="Excluir" title="Excluir" />
-							</form>
-						</td>
+							</form:form></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="3">
-						<form action="${s:mvcUrl('PC#finalizar').build() }" method="post">
+					<td colspan="4"><form:form
+							action="${s:mvcUrl('PC#finalizar').build()}" method="post">
 							<input type="submit" class="checkout" name="checkout"
 								value="Finalizar compra" />
-						</form>
-					</td>
-					<td class="numeric-cell">${carrinhoCompras.total }</td>
+						</form:form></td>
+					<td class="numeric-cell">${carrinhoCompras.total}</td>
 					<td></td>
 				</tr>
 			</tfoot>
@@ -117,13 +75,11 @@
 					alt="PL/SQL: Domine a linguagem do banco de dados Oracle" />
 			</a></li>
 		</ul>
-
 		<h2>
 			<a href="http://www.casadocodigo.com.br">Veja todos os livros que
 				publicamos!</a>
 		</h2>
 	</section>
 
-	<%@include file="/WEB-INF/views/rodape.jsp"%>
-</body>
-</html>
+</tags:pageTemplate>
+
