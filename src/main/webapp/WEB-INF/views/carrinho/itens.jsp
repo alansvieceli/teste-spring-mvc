@@ -6,12 +6,17 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 
 <tags:pageTemplate
-	titulo="Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código">
+	titulo="Seu carrinho de compras - Livros de Java, SOA, Android, iPhone, Ruby on Rails e muito mais - Casa do Código">
 
-	<c:url value="/" var="contextPath" />
+	<jsp:attribute name="extraScripts">
+        <script>console.log("Finalização de compra de ${carrinhoCompras.quantidade} itens");</script>
+    </jsp:attribute>
+
+	<jsp:body>
+		<c:url value="/" var="contextPath" />
 
 	<section class="container middle">
-		<h2 id="cart-title">Seu carrinho de compras</h2>
+		<h2 id="cart-title"></h2>
 		<table id="cart-table">
 			<colgroup>
 				<col class="item-col" />
@@ -34,20 +39,20 @@
 				<c:forEach items="${carrinhoCompras.itens }" var="item">
 					<tr>
 						<td class="cart-img-col"><img
-							src="http://cdn.shopify.com/s/files/1/0155/7645/products/css-eficiente-featured_large.png?v=1435245145"
-							width="71px" height="100px" /></td>
+								src="http://cdn.shopify.com/s/files/1/0155/7645/products/css-eficiente-featured_large.png?v=1435245145"
+								width="71px" height="100px" /></td>
 						<td class="item-title">${item.produto.titulo}</td>
 						<td class="numeric-cell">${item.preco}</td>
 						<td class="quantity-input-cell"><input type="number" min="0"
-							readonly="readonly" id="quantidade" name="quantidade"
-							value="${carrinhoCompras.getQuantidade(item) }" /></td>
+								readonly="readonly" id="quantidade" name="quantidade"
+								value="${carrinhoCompras.getQuantidade(item) }" /></td>
 						<td class="numeric-cell">${carrinhoCompras.getTotal(item)}</td>
 						<td class="remove-item"><form:form
-								action="${s:mvcUrl('CCC#remover').arg(0, item.produto.id).arg(1, item.tipoPreco).build() }"
-								method="post">
+									action="${s:mvcUrl('CCC#remover').arg(0, item.produto.id).arg(1, item.tipoPreco).build() }"
+									method="post">
 								<input type="image"
-									src="${contextPath }/resources/imagens/excluir.png"
-									alt="Excluir" title="Excluir" />
+										src="${contextPath }/resources/imagens/excluir.png"
+										alt="Excluir" title="Excluir" />
 							</form:form></td>
 					</tr>
 				</c:forEach>
@@ -55,9 +60,9 @@
 			<tfoot>
 				<tr>
 					<td colspan="4"><form:form
-							action="${s:mvcUrl('PC#finalizar').build()}" method="post">
+								action="${s:mvcUrl('PC#finalizar').build()}" method="post">
 							<input type="submit" class="checkout" name="checkout"
-								value="Finalizar compra" />
+									value="Finalizar compra" />
 						</form:form></td>
 					<td class="numeric-cell">${carrinhoCompras.total}</td>
 					<td></td>
@@ -68,11 +73,11 @@
 		<h2>Você já conhece os outros livros da Casa do Código?</h2>
 		<ul id="collection" class="related-books">
 			<li class="col-left"><a href="/products/livro-plsql"
-				class="block clearfix book-suggest"
-				data-book="PL/SQL: Domine a linguagem do banco de dados Oracle">
+					class="block clearfix book-suggest"
+					data-book="PL/SQL: Domine a linguagem do banco de dados Oracle">
 					<img width="113px" height="160px"
-					src="http:////cdn.shopify.com/s/files/1/0155/7645/products/plsql-featured_compact.png?v=1434740236"
-					alt="PL/SQL: Domine a linguagem do banco de dados Oracle" />
+						src="http:////cdn.shopify.com/s/files/1/0155/7645/products/plsql-featured_compact.png?v=1434740236"
+						alt="PL/SQL: Domine a linguagem do banco de dados Oracle" />
 			</a></li>
 		</ul>
 		<h2>
@@ -80,6 +85,8 @@
 				publicamos!</a>
 		</h2>
 	</section>
+	
+	</jsp:body>
 
 </tags:pageTemplate>
 

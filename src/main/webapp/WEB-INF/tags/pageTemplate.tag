@@ -5,6 +5,8 @@
 <%@ attribute name="titulo" required="true"%>
 <%@ attribute name="bodyClass" required="false"%>
 
+<%@ attribute name="extraScripts" fragment="true" %>
+
 <c:url value="/" var="contextPath" />
 
 <!DOCTYPE html>
@@ -90,6 +92,8 @@
 	<%@ include file="/WEB-INF/views/cabecalho.jsp"%>
 
 	<jsp:doBody />
+	
+	<jsp:invoke fragment="extraScripts"></jsp:invoke>
 
 	<%@ include file="/WEB-INF/views/rodape.jsp"%>
 
