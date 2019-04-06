@@ -1,9 +1,12 @@
 package br.com.alan.loja.controllers;
 
+import javax.servlet.Filter;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,23 +20,27 @@ import org.springframework.web.context.WebApplicationContext;
 import br.com.alan.loja.conf.AppWebConfiguration;
 import br.com.alan.loja.conf.DataSourceConfigurationTest;
 import br.com.alan.loja.conf.JPAConfiguration;
+import br.com.alan.loja.conf.SecurityConfiguration;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { JPAConfiguration.class, AppWebConfiguration.class,
-		DataSourceConfigurationTest.class })
+		DataSourceConfigurationTest.class, SecurityConfiguration.class })
 @ActiveProfiles("test")
 public class ProdutosControllerTest {
 
 	@Autowired
 	private WebApplicationContext wac;
 
+	@Autowired
+	private Filter springSecurityFilterChain;
+
 	private MockMvc mockMvc;
 
 	@Before
-	public void setup() {
-		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-	}
+    public void setup(){
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).addFilter(springSecurityFilterChain).build();
+    }
 
 	@Test
 	public void deveRetornarParaHomeComOsLivros() throws Exception {
@@ -41,5 +48,21 @@ public class ProdutosControllerTest {
 				.andExpect(MockMvcResultMatchers.model().attributeExists("produtos"))
 				.andExpect(MockMvcResultMatchers.forwardedUrl("/WEB-INF/views/home.jsp"));
 	}
+
+	@Test
+	public void somenteAdminDeveAcessarProdutosForm() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/produtos/form")
+				.with(SecurityMockMvcRequestPostProcessors
+				.user("user@alan.com.br").password("123456").roles("USUARIO")))
+				.andExpect(MockMvcResultMatchers.status().is(403));	
+	}
+	
+	@Test
+	public void somenteAdminConsegueProdutosForm() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/produtos/form")
+				.with(SecurityMockMvcRequestPostProcessors
+				.user("admin@alan.com.br").password("123456").roles("ADMIN")))
+				.andExpect(MockMvcResultMatchers.status().is(200));	
+	}	
 
 }
