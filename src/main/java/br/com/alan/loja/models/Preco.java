@@ -8,7 +8,7 @@ import br.com.alan.loja.models.enums.TipoPreco;
 
 @Embeddable
 public class Preco {
-	
+
 	private BigDecimal valor;
 	private TipoPreco tipo;
 
@@ -26,6 +26,11 @@ public class Preco {
 
 	public void setTipo(TipoPreco tipo) {
 		this.tipo = tipo;
+	}
+
+	@Override
+	public String toString() {
+		return this.tipo.name() + " - " + this.valor;
 	}
 
 }
